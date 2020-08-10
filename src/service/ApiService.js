@@ -26,8 +26,8 @@ export default class ApiService {
         return res
     }
 
-    showMovieInfo = async (id) => {
-        const res = await this.fetchData(`/3/movie/${id}`,{});
+    showMovieInfo = async (id, path ='') => {
+        const res = await this.fetchData(`3/movie/${id}${path}`,{});
         return res
     }
 }

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import { Box } from "@material-ui/core";
 import Fade from "react-reveal/Fade";
+import { Grid } from "@material-ui/core";
 
 const boxStyles = {
   backgroundColor: "#28a745",
@@ -13,16 +14,33 @@ const boxStyles = {
   color: "#ffffff",
 };
 
-const genresStyle = {
-  display: "inline",
-  color: "#28a745",
-  fontWeight: "bold",
+const genresStyleLi = {
+  display: "inline-block",
+  color: "#fff",
+  backgroundColor: "#28a745",
+  padding: "2px 5px",
+  marginRight: "5px",
+};
+
+const genresStyleUl = {
+  listStyle: "none",
+  padding: "0px",
+  marginTop: "10px",
 };
 
 const back = {
   backgroundColor: "#28a745",
   padding: "5px 10px",
   color: "#fff",
+};
+
+const actorName = {
+  fontWeight: "bold",
+  fontSize: "12px",
+};
+
+const characterName = {
+  fontSize: "10px",
 };
 
 export default class MovieItem extends Component {
@@ -35,6 +53,8 @@ export default class MovieItem extends Component {
       movieId: props.movieId,
       data: {},
       genres: [],
+      cast: [],
+      showMore: false,
     };
   }
 
@@ -42,11 +62,16 @@ export default class MovieItem extends Component {
     this.apiService
       .showMovieInfo(this.state.movieId)
       .then((data) => {
-        this.setState({
-          isLoaded: true,
-          data: data,
-          genres: data.genres,
-        });
+        this.apiService
+          .showMovieInfo(this.state.movieId, "/credits")
+          .then((credits) => {
+            this.setState({
+              cast: credits.cast,
+              isLoaded: true,
+              data: data,
+              genres: data.genres,
+            });
+          });
       })
       .catch((error) => {
         this.setState({
@@ -60,11 +85,11 @@ export default class MovieItem extends Component {
   }
 
   render() {
-    const { data, genres } = this.state;
+    const { data, genres, cast } = this.state;
     return (
       <>
         <Fade>
-          <Container style={{ marginTop: "20px" }}>
+          <Container style={{ margin: "20px auto" }}>
             <Link
               to="/"
               style={back}
@@ -76,7 +101,7 @@ export default class MovieItem extends Component {
               ← Назад{" "}
             </Link>
             <Row style={{ marginTop: "20px" }}>
-              <Col sm={5}>
+              <Col xs={12} sm={12} lg={4}>
                 <Box component="span" m={1} style={boxStyles}>
                   {data.vote_average}
                 </Box>
@@ -89,22 +114,60 @@ export default class MovieItem extends Component {
                   />
                 </Media>
               </Col>
-              <Col sm={7}>
+              <Col xs={12} sm={12} lg={8}>
                 <Media>
                   <Media.Body>
                     <h2> {data.title} </h2>
                     <div>
-                      Дата релиза:{" "}
+                      <b>Дата релиза:</b>{" "}
                       {Moment(`${data.release_date}`).format("DD.MM.YYYY")}
                     </div>
-                    {genres.map((item) => (
-                      <div style={genresStyle}> {`${item.name}`}</div>
-                    ))}
-
+                    <ul style={genresStyleUl}>
+                      {genres.map((item) => (
+                        <li style={genresStyleLi}>{`${item.name}`} &nbsp;</li>
+                      ))}
+                    </ul>
                     <div className="mt-2">
-                      <h4>Сюжет</h4>
+                      <div>
+                        <b>Сюжет</b>
+                      </div>
                       {data.overview}
                     </div>
+                    <div className="mt-2">
+                      <b>В главных ролях:</b>
+                    </div>
+                    <Grid container spacing={3}>
+                      {cast
+                        .slice(0, this.state.showMore ? cast.length : 6)
+                        .map((item) => (
+                          <Grid item xs={4} md={2} sm={3} className="mt-2 mb-3">
+                            <Media>
+                              <img
+                                height="150px"
+                                width="100px"
+                                src={
+                                  item.profile_path == null
+                                    ? "https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg"
+                                    : `https://image.tmdb.org/t/p/w185///${item.profile_path}`
+                                }
+                                alt={`${item.name}`}
+                              />
+                            </Media>
+                            <div style={actorName}>{`${item.name}`} &nbsp;</div>
+                            <div style={characterName}>
+                              {`${item.character}`} &nbsp;
+                            </div>
+                          </Grid>
+                        ))}
+                    </Grid>
+                    <Link
+                      style={back}
+                      onClick={() => {
+                        this.setState({ showMore: !this.state.showMore });
+                      }}
+                    >
+                      {this.state.showMore ? "Свернуть" : "Показать еще"}
+                    </Link>
                   </Media.Body>
                 </Media>
               </Col>
