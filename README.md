@@ -6,9 +6,9 @@
 2) The Movie Database (API)
 3) react-bootstrap и meterial UI
 
-## Demo
+## Посмотреть демо-версию
 
- [Movies App](https://svetasmoviesapp.netlify.app/)
+ [Demo Movies App](https://svetasmoviesapp.netlify.app/)
 
 Запуск проекта:
 
