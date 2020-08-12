@@ -111,7 +111,7 @@ export default class MovieItem extends Component {
                 </Box>
                 <Media>
                   <img
-                    // height="450px"
+                    height="450px"
                     className="mr-3"
                     src={data.poster_path==null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w300///${data.poster_path}`}
                     alt={data.title}
