@@ -6,6 +6,7 @@ import MovieList from "./components/MovieList";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Search from "./components/Search";
 import MovieItem from "./components/MovieItem";
+import CharItem from "./components/CharItem";
 
 export default class App extends Component {
   render() {
@@ -28,6 +29,13 @@ export default class App extends Component {
               render={({ match }) => {
                 const { query } = match.params;
                 return <Search query={query} />;
+              }}
+            />
+            <Route
+              path="/person/:id"
+              render={({match}) => {
+                const {id} = match.params;
+                return <CharItem charID={id} />;
               }}
             />
           </Switch>

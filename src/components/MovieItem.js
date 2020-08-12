@@ -6,6 +6,7 @@ import Moment from "moment";
 import { Box } from "@material-ui/core";
 import Fade from "react-reveal/Fade";
 import { Grid } from "@material-ui/core";
+import ScrollTop from './ScrollTop';
 
 const boxStyles = {
   backgroundColor: "#28a745",
@@ -20,6 +21,7 @@ const genresStyleLi = {
   backgroundColor: "#28a745",
   padding: "2px 5px",
   marginRight: "5px",
+  marginTop: "3px"
 };
 
 const genresStyleUl = {
@@ -50,6 +52,8 @@ export default class MovieItem extends Component {
     super(props);
 
     this.state = {
+      error: null,
+      isLoaded: false,
       movieId: props.movieId,
       data: {},
       genres: [],
@@ -109,8 +113,8 @@ export default class MovieItem extends Component {
                   <img
                     // height="450px"
                     className="mr-3"
-                    src={`https://image.tmdb.org/t/p/w300///${data.poster_path}`}
-                    alt="Generic placeholder"
+                    src={data.poster_path==null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w300///${data.poster_path}`}
+                    alt={data.title}
                   />
                 </Media>
               </Col>
@@ -141,6 +145,7 @@ export default class MovieItem extends Component {
                         .slice(0, this.state.showMore ? cast.length : 6)
                         .map((item) => (
                           <Grid item xs={4} md={2} sm={3} className="mt-2 mb-3">
+                          <Link to={`/person/${item.id}`} style={{color: '#000'}}>
                             <Media>
                               <img
                                 height="150px"
@@ -156,7 +161,7 @@ export default class MovieItem extends Component {
                             <div style={actorName}>{`${item.name}`} &nbsp;</div>
                             <div style={characterName}>
                               {`${item.character}`} &nbsp;
-                            </div>
+                            </div></Link>
                           </Grid>
                         ))}
                     </Grid>
@@ -172,6 +177,7 @@ export default class MovieItem extends Component {
                 </Media>
               </Col>
             </Row>
+            <ScrollTop/>
           </Container>
         </Fade>
       </>

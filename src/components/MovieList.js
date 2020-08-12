@@ -7,12 +7,16 @@ import "../components/style.css";
 import Movie from "./Movie";
 import "./style.css";
 import Fade from "react-reveal/Fade";
+import ScrollTop from './ScrollTop';
+
 
 const filters = {
   popular: { sort_by: "popularity.desc" },
   best: { sort_by: "vote_average.desc", "vote_count.gte": "5000" },
   new: { sort_by: "primary_release_date.desc", "vote_count.gte": "5000" },
 };
+
+
 
 let filtersActive = filters.popular;
 
@@ -28,7 +32,7 @@ export default class MovieList extends Component {
       pageCount: 10,
       items: [],
       page: 0,
-      item: null,
+      item: null
     };
     this.handlePageClick = this.handlePageClick.bind(this);
   }
@@ -56,6 +60,7 @@ export default class MovieList extends Component {
   handlePageClick = (e) => {
     this.loadMovies(e.selected + 1);
   };
+
 
   componentDidMount() {
     this.loadMovies(1);
@@ -95,8 +100,9 @@ export default class MovieList extends Component {
               </Grid>
             ))}
           </Grid>
+          <ScrollTop/>
         </Container>
-
+        
         <ReactPaginate
           previousLabel={"←"}
           nextLabel={"→"}

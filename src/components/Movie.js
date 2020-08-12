@@ -36,7 +36,7 @@ const imgSize = {
 
 
 const Movie = (props) => {
-    const img = props.item.poster_path == null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w220_and_h330_face/${props.item.poster_path}`
+    const img = props.item.poster_path == null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w300///${props.item.poster_path}`
   return (
     <>
       <Card style={cardStyles} movieID={props.item.id}>
@@ -49,15 +49,12 @@ const Movie = (props) => {
             component="img"
             image= {img}
             style={imgSize}
+            alt={props.item.title}
           />
 
           <CardContent>
             <Typography key={props.item.name} style={cardTitle}>
               {props.item.title}
-            </Typography>
-            
-            <Typography component="p">
-              {Moment(`${props.item.release_date}`).format("DD.MM.YYYY")}
             </Typography>
             
           </CardContent>

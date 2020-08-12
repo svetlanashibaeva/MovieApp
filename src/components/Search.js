@@ -6,6 +6,7 @@ import ApiService from "../service/ApiService";
 import "../components/style.css";
 import Movie from "./Movie";
 import Fade from "react-reveal/Fade";
+import ScrollTop from './ScrollTop';
 
 let query = "";
 
@@ -60,6 +61,7 @@ export default class Search extends Component {
     this.searchMovies(e.selected + 1);
   };
 
+
   render() {
     const { items } = this.state;
     return (
@@ -78,6 +80,7 @@ export default class Search extends Component {
               </Grid>
             )}
           </Fade>
+          <ScrollTop/>
         </Container>
 
         <ReactPaginate

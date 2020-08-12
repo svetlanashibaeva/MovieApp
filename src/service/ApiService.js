@@ -30,4 +30,9 @@ export default class ApiService {
         const res = await this.fetchData(`3/movie/${id}${path}`,{});
         return res
     }
+
+    personInfo = async (id,path ='') => {
+        const res = await this.fetchData(`3/person/${id}${path}`,{});
+        return res
+    }
 }

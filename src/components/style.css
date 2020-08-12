@@ -111,22 +111,19 @@
     cursor: pointer;
   }
 
+  .header-title { 
+    font-size: 25px;
+                    
 }
 
-.example-enter {
-  opacity: 0.01;
+.header-subtitle {
+    font-size: 20px;
 }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: fade 2s;
+.nav-tabs .nav-link {
+  width: 100px; 
+  font-size: 12px;
 }
 
-.example-leave {
-  opacity: 1;
 }
 
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: fade 2s;
-}
