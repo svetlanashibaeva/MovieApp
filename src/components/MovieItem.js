@@ -110,7 +110,7 @@ export default class MovieItem extends Component {
               }}
             >
               {" "}
-              ← Назад{" "}
+              ← На главную{" "}
             </Link>
             <Row style={{ marginTop: "20px" }}>
               <Col xs={12} sm={12} lg={4}>
@@ -153,7 +153,7 @@ export default class MovieItem extends Component {
                         .slice(0, this.state.showMore ? cast.length : 6)
                         .map((item) => (
                           <Grid item xs={4} md={2} sm={3} className="mt-2 mb-3">
-                          <Link to={`/person/${item.id}`} style={{color: '#000'}}>
+                          <Link to={`/person/${item.id}`} style={{color: '#000'}} onClick={() => {window.scrollTo(0, 0)}}>
                             <Media>
                               <img
                                 height="150px"

@@ -33,7 +33,6 @@ const cardTitle = {
 };
 
 
-
 const Movie = (props) => {
     const img = props.item.poster_path == null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w300///${props.item.poster_path}`
   return (
@@ -43,7 +42,7 @@ const Movie = (props) => {
           <Box component="span" m={1} style={boxStyles}>
             {props.item.vote_average}
           </Box>
-        <Link to={`/movie/${props.item.id}`} style={{color: '#000'}}>
+        <Link to={`/movie/${props.item.id}`} style={{color: '#000'}} onClick={() => {window.scrollTo(0, 0)}}>
           <CardMedia
             component="img"
             image= {img}

@@ -74,7 +74,7 @@ export default class CharItem extends Component {
               }}
             >
               {" "}
-              ← Назад{" "}
+              ← На главную{" "}
             </Link>
             <Row style={{ marginTop: "20px" }}>
               <Col xs={12} sm={12} lg={4}>

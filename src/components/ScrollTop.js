@@ -6,7 +6,8 @@ const scrollTop = {
     cursor: 'pointer', 
     position: "fixed", 
     zIndex: "2", 
-    bottom: "0"
+    bottom: "0",
+    right: "0"
   }
 
 
