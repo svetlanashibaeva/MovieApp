@@ -8,7 +8,7 @@
 
 ## Посмотреть демо-версию
 
- [Demo Movies App](https://svetasmovieapp.netlify.app/)
+ [Demo Movies App](https://svetasmoviesapp.netlify.app/)
 
 Запуск проекта:
 
