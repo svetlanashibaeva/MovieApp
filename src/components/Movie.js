@@ -15,6 +15,7 @@ const cardStyles = {
   borderRadius: "0%",
   border: "0px",
   boxShadow: "none",
+  background: "#252525"
 };
 
 const boxStyles = {
@@ -22,17 +23,15 @@ const boxStyles = {
   padding: "2px 5px",
   position: "absolute",
   color: "#ffffff",
+  boxShadow: '0 0 10px rgba(0,0,0,0.5)'
 };
 
 const cardTitle = {
   fontSize: "15px",
   fontWeight: "bold",
+  color: "#fff"
 };
 
-const imgSize = {
-    height: '400px',
-    width: '100%'
-}
 
 
 const Movie = (props) => {
@@ -48,8 +47,8 @@ const Movie = (props) => {
           <CardMedia
             component="img"
             image= {img}
-            style={imgSize}
             alt={props.item.title}
+            height = "400px"
           />
 
           <CardContent>

@@ -6,7 +6,7 @@ import ApiService from "../service/ApiService";
 import "../components/style.css";
 import Movie from "./Movie";
 import Fade from "react-reveal/Fade";
-import ScrollTop from './ScrollTop';
+import ErrorMessage from './ErrorMessage';
 
 let query = "";
 
@@ -59,11 +59,18 @@ export default class Search extends Component {
 
   handlePageClick = (e) => {
     this.searchMovies(e.selected + 1);
+    // eslint-disable-next-line no-restricted-globals 
+    window.scrollTo(pageXOffset, 0);
   };
 
 
   render() {
     const { items } = this.state;
+
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+
     return (
       <>
         <Container>
@@ -80,7 +87,6 @@ export default class Search extends Component {
               </Grid>
             )}
           </Fade>
-          <ScrollTop/>
         </Container>
 
         <ReactPaginate

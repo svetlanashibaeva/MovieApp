@@ -6,7 +6,7 @@ import Moment from "moment";
 import { Box } from "@material-ui/core";
 import Fade from "react-reveal/Fade";
 import { Grid } from "@material-ui/core";
-import ScrollTop from './ScrollTop';
+import ErrorMessage from './ErrorMessage';
 
 const boxStyles = {
   backgroundColor: "#28a745",
@@ -33,17 +33,20 @@ const genresStyleUl = {
 const back = {
   backgroundColor: "#28a745",
   padding: "5px 10px",
-  color: "#fff",
+  color: "#fff"
 };
 
 const actorName = {
   fontWeight: "bold",
   fontSize: "12px",
+  color: "#fff"
 };
 
 const characterName = {
   fontSize: "10px",
+  color: "#fff"
 };
+
 
 export default class MovieItem extends Component {
   apiService = new ApiService();
@@ -90,6 +93,11 @@ export default class MovieItem extends Component {
 
   render() {
     const { data, genres, cast } = this.state;
+
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+
     return (
       <>
         <Fade>
@@ -177,7 +185,6 @@ export default class MovieItem extends Component {
                 </Media>
               </Col>
             </Row>
-            <ScrollTop/>
           </Container>
         </Fade>
       </>

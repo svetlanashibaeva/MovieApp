@@ -1,5 +1,6 @@
 {
   "name": "film-app",
+  "homepage": "https://svetasmoviesapp.netlify.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

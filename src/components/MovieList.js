@@ -7,7 +7,7 @@ import "../components/style.css";
 import Movie from "./Movie";
 import "./style.css";
 import Fade from "react-reveal/Fade";
-import ScrollTop from './ScrollTop';
+import ErrorMessage from './ErrorMessage';
 
 
 const filters = {
@@ -59,12 +59,14 @@ export default class MovieList extends Component {
 
   handlePageClick = (e) => {
     this.loadMovies(e.selected + 1);
+    // eslint-disable-next-line no-restricted-globals 
+    window.scrollTo(pageXOffset, 0);
   };
-
 
   componentDidMount() {
     this.loadMovies(1);
   }
+  
 
   changeFilter = (eventKey) => {
     if (eventKey === "popular") {
@@ -79,9 +81,14 @@ export default class MovieList extends Component {
 
   render() {
     const { items } = this.state;
+
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+
     return (
       <>
-        <Tabs
+      <Tabs
           defaultActiveKey="popular"
           id="uncontrolled-tab-example"
           onSelect={this.changeFilter}
@@ -90,6 +97,7 @@ export default class MovieList extends Component {
           <Tab eventKey="best" title="Лучшее" />
           <Tab eventKey="new" title="Новое" />
         </Tabs>
+
         <Container>
           <Grid container spacing={3}>
             {items.map((item) => (
@@ -100,7 +108,6 @@ export default class MovieList extends Component {
               </Grid>
             ))}
           </Grid>
-          <ScrollTop/>
         </Container>
         
         <ReactPaginate

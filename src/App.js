@@ -7,8 +7,19 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Search from "./components/Search";
 import MovieItem from "./components/MovieItem";
 import CharItem from "./components/CharItem";
+import ScrollTop from './components/ScrollTop';
 
-export default class App extends Component {
+
+export default class App extends Component { 
+
+  componentDidMount() {
+    let showScroll = document.getElementById('showScroll');
+    window.addEventListener('scroll', () => {
+      // eslint-disable-next-line no-restricted-globals 
+      showScroll.hidden = (pageYOffset < document.documentElement.clientHeight);
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -39,6 +50,7 @@ export default class App extends Component {
               }}
             />
           </Switch>
+          <ScrollTop/>
         </div>
       </Router>
     );

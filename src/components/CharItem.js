@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import Fade from "react-reveal/Fade";
 import { Grid } from "@material-ui/core";
-
+import ErrorMessage from './ErrorMessage';
 
 const back = {
   backgroundColor: "#28a745",
@@ -57,6 +57,11 @@ export default class CharItem extends Component {
 
   render() {
     const { data, images, profilePath} = this.state;
+
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+
     return (
       <>
         <Fade>
