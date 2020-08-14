@@ -6,8 +6,8 @@ import ApiService from "../service/ApiService";
 import "../assets/style.css";
 import Movie from "./Movie";
 import Fade from "react-reveal/Fade";
-import ErrorMessage from './ErrorMessage';
-import Spinner from './Spinner';
+import ErrorMessage from "./ErrorMessage";
+import Spinner from "./Spinner";
 
 let query = "";
 
@@ -60,20 +60,19 @@ export default class Search extends Component {
 
   handlePageClick = (e) => {
     this.searchMovies(e.selected + 1);
-    // eslint-disable-next-line no-restricted-globals 
+    // eslint-disable-next-line no-restricted-globals
     window.scrollTo(pageXOffset, 0);
   };
 
-
   render() {
-    const { items } = this.state;
+    const { items, error, isLoaded, pageCount, page } = this.state;
 
-    if (this.state.error) {
-      return <ErrorMessage/>
+    if (error) {
+      return <ErrorMessage />;
     }
 
-    if (!this.state.isLoaded) {
-      return <Spinner/>
+    if (!isLoaded) {
+      return <Spinner />;
     }
 
     return (
@@ -99,14 +98,14 @@ export default class Search extends Component {
           nextLabel={"→"}
           breakLabel={"..."}
           breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
+          pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.handlePageClick}
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"}
-          forcePage={this.state.page}
+          forcePage={page}
         />
       </>
     );

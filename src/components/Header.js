@@ -25,24 +25,23 @@ const btnClear = {
 };
 
 class Header extends Component {
-
   state = {
-    isVisible: false
-  }
+    isVisible: false,
+  };
 
   handleChange = (e) => {
     this.props.history.push(`/search/${e.target.value}`);
     this.setState({
-      isVisible: true
-    })
+      isVisible: true,
+    });
   };
 
   clearSearch = () => {
     document.getElementById("searchForm").value = "";
     this.props.history.push("/");
     this.setState({
-      isVisible: false
-    })
+      isVisible: false,
+    });
   };
 
   render() {
@@ -63,10 +62,13 @@ class Header extends Component {
                 onChange={this.handleChange}
                 id="searchForm"
               />
-              {this.state.isVisible ? 
-              <Button onClick={this.clearSearch} style={btnClear}>
-                ×
-              </Button> : ""}
+              {this.state.isVisible ? (
+                <Button onClick={this.clearSearch} style={btnClear}>
+                  ×
+                </Button>
+              ) : (
+                ""
+              )}
             </Form>
           </div>
         </Container>

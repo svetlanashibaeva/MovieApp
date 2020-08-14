@@ -35,6 +35,7 @@ export default class MovieList extends Component {
       item: null
     };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
   }
 
   loadMovies(page) {
@@ -80,13 +81,13 @@ export default class MovieList extends Component {
   };
 
   render() {
-    const { items } = this.state;
+    const { items, error, isLoaded, pageCount, page } = this.state;
 
-    if (this.state.error) {
+    if (error) {
       return <ErrorMessage/>
     }
 
-    if (!this.state.isLoaded) {
+    if (!isLoaded) {
       return <Spinner/>
     }
 
@@ -119,14 +120,14 @@ export default class MovieList extends Component {
           nextLabel={"→"}
           breakLabel={"..."}
           breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
+          pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.handlePageClick}
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"}
-          forcePage={this.state.page}
+          forcePage={page}
         />
       </>
     );
