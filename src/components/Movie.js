@@ -7,7 +7,6 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import Moment from "moment";
 import { Link } from "react-router-dom";
 
 const cardStyles = {

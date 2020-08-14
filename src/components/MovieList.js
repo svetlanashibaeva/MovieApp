@@ -3,11 +3,11 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import { Grid } from "@material-ui/core";
 import ReactPaginate from "react-paginate";
 import ApiService from "../service/ApiService";
-import "../components/style.css";
 import Movie from "./Movie";
-import "./style.css";
+import "../assets/style.css";
 import Fade from "react-reveal/Fade";
 import ErrorMessage from './ErrorMessage';
+import Spinner from './Spinner';
 
 
 const filters = {
@@ -84,6 +84,10 @@ export default class MovieList extends Component {
 
     if (this.state.error) {
       return <ErrorMessage/>
+    }
+
+    if (!this.state.isLoaded) {
+      return <Spinner/>
     }
 
     return (

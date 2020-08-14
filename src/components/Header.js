@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./style.css";
+import "../assets/style.css";
 import { Container } from "react-bootstrap";
 import { Form, FormControl, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
@@ -25,13 +25,24 @@ const btnClear = {
 };
 
 class Header extends Component {
+
+  state = {
+    isVisible: false
+  }
+
   handleChange = (e) => {
     this.props.history.push(`/search/${e.target.value}`);
+    this.setState({
+      isVisible: true
+    })
   };
 
   clearSearch = () => {
     document.getElementById("searchForm").value = "";
     this.props.history.push("/");
+    this.setState({
+      isVisible: false
+    })
   };
 
   render() {
@@ -52,9 +63,10 @@ class Header extends Component {
                 onChange={this.handleChange}
                 id="searchForm"
               />
+              {this.state.isVisible ? 
               <Button onClick={this.clearSearch} style={btnClear}>
                 ×
-              </Button>
+              </Button> : ""}
             </Form>
           </div>
         </Container>

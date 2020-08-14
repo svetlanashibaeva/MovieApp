@@ -6,6 +6,7 @@ import Moment from "moment";
 import Fade from "react-reveal/Fade";
 import { Grid } from "@material-ui/core";
 import ErrorMessage from './ErrorMessage';
+import Spinner from './Spinner';
 
 const back = {
   backgroundColor: "#28a745",
@@ -60,6 +61,10 @@ export default class CharItem extends Component {
 
     if (this.state.error) {
       return <ErrorMessage/>
+    }
+
+    if (!this.state.isLoaded) {
+      return <Spinner/>
     }
 
     return (

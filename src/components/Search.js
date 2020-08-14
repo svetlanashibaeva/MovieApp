@@ -3,10 +3,11 @@ import { Container } from "react-bootstrap";
 import { Grid } from "@material-ui/core";
 import ReactPaginate from "react-paginate";
 import ApiService from "../service/ApiService";
-import "../components/style.css";
+import "../assets/style.css";
 import Movie from "./Movie";
 import Fade from "react-reveal/Fade";
 import ErrorMessage from './ErrorMessage';
+import Spinner from './Spinner';
 
 let query = "";
 
@@ -69,6 +70,10 @@ export default class Search extends Component {
 
     if (this.state.error) {
       return <ErrorMessage/>
+    }
+
+    if (!this.state.isLoaded) {
+      return <Spinner/>
     }
 
     return (

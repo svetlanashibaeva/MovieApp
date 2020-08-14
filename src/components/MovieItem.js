@@ -7,6 +7,8 @@ import { Box } from "@material-ui/core";
 import Fade from "react-reveal/Fade";
 import { Grid } from "@material-ui/core";
 import ErrorMessage from './ErrorMessage';
+import Spinner from './Spinner';
+import "../assets/style.css";
 
 const boxStyles = {
   backgroundColor: "#28a745",
@@ -62,6 +64,7 @@ export default class MovieItem extends Component {
       genres: [],
       cast: [],
       showMore: false,
+      videos: []
     };
   }
 
@@ -72,11 +75,16 @@ export default class MovieItem extends Component {
         this.apiService
           .showMovieInfo(this.state.movieId, "/credits")
           .then((credits) => {
-            this.setState({
-              cast: credits.cast,
-              isLoaded: true,
-              data: data,
-              genres: data.genres,
+            this.apiService
+            .showMovieInfo(this.state.movieId, "/videos")
+            .then((videos) => {
+              this.setState({
+                cast: credits.cast,
+                isLoaded: true,
+                data: data,
+                genres: data.genres,
+                videos: videos.results
+              });
             });
           });
       })
@@ -92,11 +100,16 @@ export default class MovieItem extends Component {
   }
 
   render() {
-    const { data, genres, cast } = this.state;
+    const { data, genres, cast, videos } = this.state;
 
     if (this.state.error) {
       return <ErrorMessage/>
     }
+
+    if (!this.state.isLoaded) {
+      return <Spinner/>
+    }
+
 
     return (
       <>
@@ -145,6 +158,10 @@ export default class MovieItem extends Component {
                       </div>
                       {data.overview}
                     </div>
+                    {videos.length != 0 ?
+                    <div className="mt-3 frame_blc">
+                      <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videos[0].key}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div> : ""}
                     <div className="mt-2">
                       <b>В главных ролях:</b>
                     </div>
