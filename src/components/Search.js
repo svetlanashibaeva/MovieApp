@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import { Grid } from "@material-ui/core";
-import ReactPaginate from "react-paginate";
 import ApiService from "../service/ApiService";
 import "../assets/style.css";
 import Movie from "./Movie";
 import Fade from "react-reveal/Fade";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "./Spinner";
+import Paginate from "./Paginate";
 
 let query = "";
 
@@ -29,6 +29,7 @@ export default class Search extends Component {
   }
 
   searchMovies(page) {
+    this.setState({ isLoaded: false });
     this.apiService
       .searchMovies({ sort_by: "popularity.desc", page: page, query: query })
       .then((data) => {
@@ -84,7 +85,7 @@ export default class Search extends Component {
             ) : (
               <Grid container spacing={3}>
                 {items.map((item) => (
-                  <Grid item xs={12} md={3} sm={6}>
+                  <Grid item xs={6} md={3} sm={6}>
                     <Movie item={item} />
                   </Grid>
                 ))}
@@ -93,19 +94,10 @@ export default class Search extends Component {
           </Fade>
         </Container>
 
-        <ReactPaginate
-          previousLabel={"←"}
-          nextLabel={"→"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
+        <Paginate
           pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
+          page={page}
           onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-          forcePage={page}
         />
       </>
     );

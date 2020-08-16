@@ -8,9 +8,10 @@ import {
   Box,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import "../assets/style.css";
+
 
 const cardStyles = {
-  height: "420",
   borderRadius: "0%",
   border: "0px",
   boxShadow: "none",
@@ -31,9 +32,10 @@ const cardTitle = {
   color: "#fff"
 };
 
+console.log('fdfd', document.body.clientWidth)
 
 const Movie = (props) => {
-    const img = props.item.poster_path == null ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg' : `https://image.tmdb.org/t/p/w300///${props.item.poster_path}`
+    const img = props.item.poster_path == null ? "https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg" : `https://image.tmdb.org/t/p/w300///${props.item.poster_path}`
   return (
     <>
       <Card style={cardStyles} movieID={props.item.id}>
@@ -46,7 +48,7 @@ const Movie = (props) => {
             component="img"
             image= {img}
             alt={props.item.title}
-            height = "400px"
+            height = {document.body.clientWidth > 430 ? '400px' : '200px'}
           />
 
           <CardContent>

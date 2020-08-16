@@ -11,7 +11,6 @@ const scrollTop = {
 
 
 const ScrollTop = () => {
-    console.log('dfgfd')
     return (    
     <img 
         src={pageUp} 

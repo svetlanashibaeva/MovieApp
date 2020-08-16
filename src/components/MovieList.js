@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Grid } from "@material-ui/core";
-import ReactPaginate from "react-paginate";
 import ApiService from "../service/ApiService";
 import Movie from "./Movie";
 import "../assets/style.css";
 import Fade from "react-reveal/Fade";
 import ErrorMessage from './ErrorMessage';
 import Spinner from './Spinner';
+import Paginate from "./Paginate";
 
 
 const filters = {
@@ -16,9 +16,7 @@ const filters = {
   new: { sort_by: "primary_release_date.desc", "vote_count.gte": "5000" },
 };
 
-
-
-let filtersActive = filters.popular;
+let activeTab = "popular";
 
 export default class MovieList extends Component {
   apiService = new ApiService();
@@ -39,7 +37,8 @@ export default class MovieList extends Component {
   }
 
   loadMovies(page) {
-    let _filters = filtersActive;
+    this.setState({isLoaded: false})
+    let _filters = filters[activeTab];
     _filters["page"] = page;
     this.apiService
       .fetchMovies(_filters)
@@ -68,15 +67,8 @@ export default class MovieList extends Component {
     this.loadMovies(1);
   }
   
-
   changeFilter = (eventKey) => {
-    if (eventKey === "popular") {
-      filtersActive = filters.popular;
-    } else if (eventKey === "best") {
-      filtersActive = filters.best;
-    } else if (eventKey === "new") {
-      filtersActive = filters.new;
-    }
+    activeTab = eventKey
     this.loadMovies(1);
   };
 
@@ -88,47 +80,33 @@ export default class MovieList extends Component {
     }
 
     if (!isLoaded) {
-      return <Spinner/>
+      return <Spinner />;
     }
 
     return (
       <>
       <Tabs
-          defaultActiveKey="popular"
+          activeKey = {activeTab}
           id="uncontrolled-tab-example"
           onSelect={this.changeFilter}
         >
           <Tab eventKey="popular" title="Популярное" />
           <Tab eventKey="best" title="Лучшее" />
           <Tab eventKey="new" title="Новое" />
-        </Tabs>
+      </Tabs>
 
         <Container>
           <Grid container spacing={3}>
             {items.map((item) => (
-              <Grid item xs={12} md={3} sm={6}>
+              <Grid item xs={6} md={3} sm={6}>
                 <Fade>
                   <Movie item={item} />
                 </Fade>
               </Grid>
             ))}
           </Grid>
-        </Container>
-        
-        <ReactPaginate
-          previousLabel={"←"}
-          nextLabel={"→"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-          forcePage={page}
-        />
+        </Container> 
+        <Paginate pageCount={pageCount} page={page} onPageChange={this.handlePageClick}/>
       </>
     );
   }
