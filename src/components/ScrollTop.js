@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import pageUp from '../assets/pageUp.png';
 
 const scrollTop = {
@@ -7,7 +7,7 @@ const scrollTop = {
     zIndex: "2", 
     bottom: "0",
     right: "0"
-  }
+}
 
 
 const ScrollTop = () => {

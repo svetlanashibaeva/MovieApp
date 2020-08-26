@@ -32,7 +32,6 @@ const cardTitle = {
   color: "#fff"
 };
 
-console.log('fdfd', document.body.clientWidth)
 
 const Movie = (props) => {
     const img = props.item.poster_path == null ? "https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg" : `https://image.tmdb.org/t/p/w300///${props.item.poster_path}`
@@ -50,17 +49,14 @@ const Movie = (props) => {
             alt={props.item.title}
             height = {document.body.clientWidth > 430 ? '400px' : '200px'}
           />
-
           <CardContent>
             <Typography key={props.item.name} style={cardTitle}>
               {props.item.title}
-            </Typography>
-            
+            </Typography>  
           </CardContent>
           </Link>
         </CardActionArea>
-      </Card>
-      
+      </Card>     
     </>
   );
 };
