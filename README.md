@@ -1,5 +1,3 @@
-Проект был создан при помощи [Create React App](https://github.com/facebook/create-react-app).
-
 В работе использовались следующие технологии:
 
 1) React JS
